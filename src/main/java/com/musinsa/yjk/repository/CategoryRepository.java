@@ -31,4 +31,56 @@ public interface CategoryRepository extends JpaRepository<Product, Long> {
             ") " +
             "GROUP BY c.name, b.name ")
     List<CategoryMinPriceDTO> findCategoryMinimumPrice();
+
+    /*
+        SELECT B.NAME AS BRAND_NAME, C.NAME, P.PRICE
+            FROM PRODUCT P
+            JOIN BRAND B ON P.BRAND_ID = B.ID
+            JOIN CATEGORY C ON P.CATEGORY_ID = C.ID
+            WHERE B.ID = (
+
+            SELECT B2.ID
+                    FROM PRODUCT P2
+                    JOIN BRAND B2 ON P2.BRAND_ID = B2.ID
+                    JOIN CATEGORY C2 ON P2.CATEGORY_ID = C2.ID
+                    GROUP BY B2.ID
+                    HAVING SUM(P2.PRICE)  =
+            (
+                SELECT MIN(TOTAL_PRICES)
+                FROM (
+                    SELECT B2.ID, SUM(P2.PRICE) AS TOTAL_PRICES
+                    FROM PRODUCT P2
+                    JOIN BRAND B2 ON P2.BRAND_ID = B2.ID
+                    JOIN CATEGORY C2 ON P2.CATEGORY_ID = C2.ID
+                    GROUP BY B2.ID
+                ) AS MIN_PRICES
+            )
+
+            )
+            GROUP BY B.ID, C.ID
+     */
+    @Query("SELECT new com.musinsa.yjk.dto.CategoryMinPriceDTO(c.name, b.name, p.price) " +
+            "FROM Product p " +
+            "JOIN p.brand b " +
+            "JOIN p.category c " +
+            "WHERE b.id = (" +
+            "    SELECT b2.id " +
+            "    FROM Product p2 " +
+            "    JOIN p2.brand b2 " +
+            "    JOIN p2.category c2 " +
+            "    GROUP BY b2.id " +
+            "    HAVING SUM(p2.price) = (" +
+            "        SELECT MIN(totalPrices) " +
+            "        FROM (" +
+            "            SELECT SUM(p3.price) AS totalPrices " +
+            "            FROM Product p3 " +
+            "            JOIN p3.brand b3 " +
+            "            JOIN p3.category c3 " +
+            "            GROUP BY b3.id" +
+            "        )" +
+            "    )" +
+            ") " +
+            "GROUP BY c.name, b.name")
+    List<CategoryMinPriceDTO> findBrandCategoryMinimumPrices();
+
 }

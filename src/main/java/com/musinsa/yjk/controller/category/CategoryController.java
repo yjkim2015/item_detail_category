@@ -18,4 +18,9 @@ public class CategoryController {
     public CategoryMinPriceResponse getCategoryMinimumPrices() {
         return categoryService.getCategoryMinimumPrices();
     }
+
+    @GetMapping("/v1/category/brand/min-prices")
+    public CategoryBrandMinPriceResponse getBrandCategoryMinimumPrices() {
+        return categoryService.getBrandCategoryMinimumPrices();
+    }
 }

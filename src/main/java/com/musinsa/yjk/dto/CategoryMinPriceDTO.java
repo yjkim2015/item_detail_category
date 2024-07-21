@@ -1,6 +1,5 @@
 package com.musinsa.yjk.dto;
 
-import com.musinsa.yjk.utils.FormatUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -12,5 +11,5 @@ import java.math.BigDecimal;
 public class CategoryMinPriceDTO {
     private String categoryName;
     private String brandName;
-    private BigDecimal minPrice;
+    private BigDecimal price;
 }

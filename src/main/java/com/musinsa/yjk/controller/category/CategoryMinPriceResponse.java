@@ -1,7 +1,6 @@
 package com.musinsa.yjk.controller.category;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 import java.util.List;
@@ -10,14 +9,14 @@ import java.util.List;
 @Getter
 public class CategoryMinPriceResponse {
 
-    private List<MinPriceItem> items;
-    private String totalPrice;
+    private List<MinPriceItem> 상품목록;
+    private String 총액;
 
     @AllArgsConstructor
     @Getter
     public static class MinPriceItem {
-        private String categoryName;
-        private String brandName;
-        private String price;
+        private String 카테고리;
+        private String 브랜드;
+        private String 가격;
     }
 }
