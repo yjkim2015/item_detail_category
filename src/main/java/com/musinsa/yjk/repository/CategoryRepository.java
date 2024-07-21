@@ -2,6 +2,7 @@ package com.musinsa.yjk.repository;
 
 import com.musinsa.yjk.dto.CategoryMinMaxDTO;
 import com.musinsa.yjk.dto.CategoryMinPriceDTO;
+import com.musinsa.yjk.entity.Category;
 import com.musinsa.yjk.entity.Product;
 import jakarta.persistence.ColumnResult;
 import jakarta.persistence.ConstructorResult;
@@ -16,7 +17,7 @@ import java.util.List;
 
 
 @Repository
-public interface CategoryRepository extends JpaRepository<Product, Long> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
     // 카테고리별 최소 가격 조회
     @Query("SELECT new com.musinsa.yjk.dto.CategoryMinPriceDTO(c.name, b.name, MIN(p.price)) " +
             "FROM Product p " +
