@@ -1,5 +1,6 @@
 package com.musinsa.yjk.repository;
 
+import com.musinsa.yjk.dto.CategoryMinMaxDTO;
 import com.musinsa.yjk.dto.CategoryMinPriceDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @DataJpaTest
-class CategoryBrandItemRepositoryTest {
+class CategoryRepositoryTest {
 
     @Autowired
     private CategoryRepository categoryRepository;

@@ -5,6 +5,7 @@ import com.musinsa.yjk.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,4 +24,10 @@ public class CategoryController {
     public CategoryBrandMinPriceResponse getBrandCategoryMinimumPrices() {
         return categoryService.getBrandCategoryMinimumPrices();
     }
+
+    @GetMapping("/v1/category/min-max-prices")
+    public CategoryMinMaxResponse getCategoryMinMaxPrice(@RequestParam("categoryName") String categoryName) {
+        return categoryService.getCategoryMinMaxPrice(categoryName);
+    }
+
 }

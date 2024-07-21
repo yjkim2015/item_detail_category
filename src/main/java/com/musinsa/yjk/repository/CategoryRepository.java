@@ -1,11 +1,17 @@
 package com.musinsa.yjk.repository;
 
+import com.musinsa.yjk.dto.CategoryMinMaxDTO;
 import com.musinsa.yjk.dto.CategoryMinPriceDTO;
 import com.musinsa.yjk.entity.Product;
+import jakarta.persistence.ColumnResult;
+import jakarta.persistence.ConstructorResult;
+import jakarta.persistence.SqlResultSetMapping;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -82,5 +88,4 @@ public interface CategoryRepository extends JpaRepository<Product, Long> {
             ") " +
             "GROUP BY c.name, b.name")
     List<CategoryMinPriceDTO> findBrandCategoryMinimumPrices();
-
 }

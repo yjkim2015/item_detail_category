@@ -2,12 +2,14 @@ package com.musinsa.yjk.service;
 
 
 import com.musinsa.yjk.controller.category.CategoryBrandMinPriceResponse;
+import com.musinsa.yjk.controller.category.CategoryMinMaxResponse;
 import com.musinsa.yjk.controller.category.CategoryMinPriceResponse;
+import com.musinsa.yjk.dto.CategoryMinMaxDTO;
 import com.musinsa.yjk.dto.CategoryMinPriceDTO;
+import com.musinsa.yjk.repository.CategoryCustomRepository;
 import com.musinsa.yjk.repository.CategoryRepository;
 import com.musinsa.yjk.utils.FormatUtils;
 import lombok.RequiredArgsConstructor;
-import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -20,6 +22,8 @@ import java.util.List;
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+
+    private final CategoryCustomRepository categoryCustomRepository;
 
     public CategoryMinPriceResponse getCategoryMinimumPrices() {
 
@@ -42,7 +46,7 @@ public class CategoryService {
                     categoryMinPriceDTO.getCategoryName(),
                     categoryMinPriceDTO.getBrandName(),
                     FormatUtils.bigDecimalToString(categoryMinPriceDTO.getPrice()
-            ));
+                    ));
             items.add(minPriceItem);
         }
 
@@ -81,6 +85,50 @@ public class CategoryService {
                         FormatUtils.bigDecimalToString(totalPrice)
                 )
         );
+    }
+
+    public CategoryMinMaxResponse getCategoryMinMaxPrice(String categoryName) {
+        CategoryMinMaxDTO categoryMinMaxPrice = categoryCustomRepository.findCategoryMinMaxPrice(categoryName);
+
+        return convertCategoryMinMaxDtoToResponse(categoryMinMaxPrice);
+    }
+
+    private CategoryMinMaxResponse convertCategoryMinMaxDtoToResponse(CategoryMinMaxDTO categoryMinMaxPrice) {
+        if (categoryMinMaxPrice == null) {
+
+        }
+        BigDecimal maxPrice = categoryMinMaxPrice.getMaxPrice();
+        String maxPriceBrands = categoryMinMaxPrice.getMaxPriceBrands();
+        BigDecimal minPrice = categoryMinMaxPrice.getMinPrice();
+        String minPriceBrands = categoryMinMaxPrice.getMinPriceBrands();
+        String categoryName = categoryMinMaxPrice.getCategoryName();
+        List<CategoryMinMaxResponse.CategoryMinMaxItem> 최저가 = new ArrayList<>();
+        List<CategoryMinMaxResponse.CategoryMinMaxItem> 최고가 = new ArrayList<>();
+        addCategoryMinMaxItems(maxPrice, maxPriceBrands, 최고가);
+        addCategoryMinMaxItems(minPrice, minPriceBrands, 최저가);
+
+
+        return new CategoryMinMaxResponse(
+                categoryName,
+                최저가,
+                최고가
+        );
+    }
+
+    private void addCategoryMinMaxItems(BigDecimal price, String minMaxBrands, List<CategoryMinMaxResponse.CategoryMinMaxItem> 최저최고가) {
+        if (minMaxBrands.contains(",")) {
+            String[] brands = minMaxBrands.split(",");
+            for (String brand: brands) {
+                최저최고가.add(new CategoryMinMaxResponse.CategoryMinMaxItem(
+                        brand.trim(), FormatUtils.bigDecimalToString(price)
+                ));
+            }
+        }
+        else {
+            최저최고가.add(new CategoryMinMaxResponse.CategoryMinMaxItem(
+                    minMaxBrands.trim(), FormatUtils.bigDecimalToString(price)
+            ));
+        }
     }
 
 }
