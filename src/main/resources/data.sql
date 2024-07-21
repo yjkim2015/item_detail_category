@@ -1,24 +1,24 @@
 -- 브랜드 테이블에 브랜드 A 추가
-INSERT INTO Brand (id, name) VALUES (1, 'A');
-INSERT INTO Brand (id, name) VALUES (2, 'B');
-INSERT INTO Brand (id, name) VALUES (3, 'C');
-INSERT INTO Brand (id, name) VALUES (4, 'D');
-INSERT INTO Brand (id, name) VALUES (5, 'E');
-INSERT INTO Brand (id, name) VALUES (6, 'F');
-INSERT INTO Brand (id, name) VALUES (7, 'G');
-INSERT INTO Brand (id, name) VALUES (8, 'H');
-INSERT INTO Brand (id, name) VALUES (9, 'I');
+INSERT INTO Brand (name) VALUES ('A');
+INSERT INTO Brand (name) VALUES ('B');
+INSERT INTO Brand (name) VALUES ('C');
+INSERT INTO Brand (name) VALUES ('D');
+INSERT INTO Brand (name) VALUES ('E');
+INSERT INTO Brand (name) VALUES ('F');
+INSERT INTO Brand (name) VALUES ('G');
+INSERT INTO Brand (name) VALUES ('H');
+INSERT INTO Brand (name) VALUES ('I');
 
 
 -- 카테고리 테이블에 카테고리 정보 추가 (예시)
-INSERT INTO Category (id, name) VALUES (1, '상의');
-INSERT INTO Category (id, name) VALUES (2, '아우터');
-INSERT INTO Category (id, name) VALUES (3, '바지');
-INSERT INTO Category (id, name) VALUES (4, '스니커즈');
-INSERT INTO Category (id, name) VALUES (5, '가방');
-INSERT INTO Category (id, name) VALUES (6, '모자');
-INSERT INTO Category (id, name) VALUES (7, '양말');
-INSERT INTO Category (id, name) VALUES (8, '액세사리');
+INSERT INTO Category (name) VALUES ('상의');
+INSERT INTO Category (name) VALUES ('아우터');
+INSERT INTO Category (name) VALUES ('바지');
+INSERT INTO Category (name) VALUES ('스니커즈');
+INSERT INTO Category (name) VALUES ('가방');
+INSERT INTO Category (name) VALUES ('모자');
+INSERT INTO Category (name) VALUES ('양말');
+INSERT INTO Category (name) VALUES ('액세사리');
 
 -- 제품 테이블에 제품 정보 추가 (카테고리 id 사용)
 INSERT INTO Product (category_id, price, brand_id) VALUES (1, 11200, 1);
