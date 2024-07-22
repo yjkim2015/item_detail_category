@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping(value = "", produces="application/json")
+    @GetMapping(value = "/all", produces="application/json")
     public ResponseEntity<CommonResponse> findAllProduct() throws Exception {
         CommonResponse result =  new CommonResponse(HttpStatus.OK, productService.findAllProduct());
         return result.build();

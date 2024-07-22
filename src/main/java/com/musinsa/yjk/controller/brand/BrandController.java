@@ -20,7 +20,7 @@ public class BrandController {
         return result.build();
     }
 
-    @GetMapping(value = "", produces="application/json")
+    @GetMapping(value = "/all", produces="application/json")
     public ResponseEntity<CommonResponse> findAllBrand() throws Exception {
         CommonResponse result =  new CommonResponse(HttpStatus.OK, brandService.findAllBrand());
         return result.build();
